@@ -1,10 +1,26 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI
+from pydantic import BaseModel, root_validator
 
 app = FastAPI()
 
 
-@app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
-    data = await file.read()
-    print("data", data)
-    return "ok"
+class WithRootValidatorParams(BaseModel):
+    name: str
+
+    @root_validator
+    def validate(cls, values: dict):
+        return values
+
+
+class WithoutRootValidatorParams(BaseModel):
+    name: str
+
+
+@app.post("/with-root-validator")
+async def test1(params: WithRootValidatorParams):
+    return str(type(params))
+
+
+@app.post("/without-root-validator")
+def test2(params: WithoutRootValidatorParams):
+    return str(type(params))

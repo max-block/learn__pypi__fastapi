@@ -6,3 +6,6 @@ t1:
 
 t2:
 	uvicorn --reload --port 3000 t2__async_sync:app
+
+t3:
+	uvicorn --reload --port 3000 t3__jinja:app
