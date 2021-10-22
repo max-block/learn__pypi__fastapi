@@ -9,3 +9,6 @@ t2:
 
 t3:
 	uvicorn --reload --port 3000 t3__jinja:app
+
+t4:
+	uvicorn --reload --port 3000 t4__response_plain_text:app
